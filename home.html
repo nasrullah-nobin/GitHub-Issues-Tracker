@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GitHub Issues Tracker</title>
+    <title>GitHub Issues Home</title>
     <!-- fav icon link  -->
     <link
       rel="shortcut icon"
@@ -28,11 +28,85 @@
     />
     <!-- css link  -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- font awesome cdn link  -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
-  <body class="bg-[#E4E4E7] min-h-screen py-20">
-    <!-- Open the modal using ID.showModal() method -->
+  <body class="bg-[#E4E4E7] min-h-screen w-full">
+    <header class="bg-base-100 shadow-sm">
+      <nav class="navbar w-11/12 mx-auto">
+        <div class="flex-1">
+          <a class="btn btn-ghost text-xl">
+            <div class="w-9">
+              <img src="assets/github-logo.png" alt="github-logo" />
+            </div>
+            <span>GitHub Issues Tracker</span></a
+          >
+        </div>
+        <div class="flex gap-2">
+          <input type="text" placeholder="Search issues..." class="input" />
+          <button class="btn btn-primary">New Issue</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="w-11/12 mx-auto">
+      <section class="bg-white mt-20 p-6 flex gap-2 rounded-lg">
+        <button class="btn btn-primary">All</button>
+        <button class="btn">Open</button>
+        <button class="btn">Closed</button>
+      </section>
+
+      <section>
+        <div
+          class="bg-white mt-4 p-6 flex gap-2 rounded-lg justify-between items-center"
+        >
+          <div class="flex gap-2 items-center">
+            <div class="bg-[#ECE4FF] rounded-full p-3">
+              <img src="assets/Aperture.png" alt="" />
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold">50 Issues</h3>
+              <p class="text-base text-gray-400">
+                Track and manage your project issues
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="flex gap-1 items-center">
+              <span class="bg-[#00A96E] rounded-full w-5 h-5"></span>
+              <span class="font-medium text-base">Open</span>
+            </div>
+            <div class="flex gap-1 items-center">
+              <span class="bg-[#A855F7] rounded-full w-5 h-5"></span>
+              <span class="font-medium text-base">Closed</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="issues-container" class="p-6 shadow rounded-lg grid grid-cols-3 gap-4">
+        <article class="bg-white p-4 rounded-lg space-y-5">
+          <div class="flex justify-between">
+            <img src="assets/Closed- Status .png" alt="" />
+            <div class="badge badge-soft badge-error rounded-full">Error</div>
+          </div>
+          <h2 class="text-sm font-semibold">Fix navigation menu on mobile devices</h2>
+          <p class="text-xs text-gray-400">
+            The navigation menu doesn't collapse properly on mobile devices...
+          </p>
+          <div class="font-medium flex items-center gap-3">
+            <div class="badge badge-soft badge-error rounded-full"><i class="fa-solid fa-bug"></i> bug</div>
+            <div class="badge badge-soft badge-warning"><i class="fa-solid fa-life-ring"></i> help wanted</div>
+          </div>
+         <span class="inline-block w-full border-t border-gray-700 opacity-15"></span>
+          <p>#1 by john_doe</p>
+          <p>1/15/2024</p>
+        </article>
+      </section>
+    </main>
     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
       <div id="modal-box" class="modal-box"></div>
     </dialog>
+    <script src="Js/home.js"></script>
   </body>
 </html>
