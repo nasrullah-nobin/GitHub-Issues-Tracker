@@ -1,12 +1,18 @@
+const updateTotal = () => {
+  const totalIssues = document.getElementById("total-issues");
+  const issuesContainer = document.getElementById("issues-container");
+  totalIssues.innerText = issuesContainer.children.length;
+};
+
 const showSpinner = () => {
   document.getElementById("loading-spinner").classList.remove("hidden");
   document.getElementById("issues-container").classList.add("hidden");
 };
 
-const hiddenSpinner =()=> {
+const hiddenSpinner = () => {
   document.getElementById("loading-spinner").classList.add("hidden");
   document.getElementById("issues-container").classList.remove("hidden");
-}
+};
 const createElement = (arr) => {
   const htmlElement = arr.map((el) => {
     if (el === "bug") {
@@ -25,7 +31,7 @@ const createElement = (arr) => {
 };
 
 const loadAllIssues = () => {
-  showSpinner()
+  showSpinner();
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((data) => displayIssues(data.data));
@@ -76,8 +82,9 @@ ${issues.priority}
           <p>Update : ${issues.updatedAt}
           </div>
         `;
-        hiddenSpinner()
+    hiddenSpinner();
     issuesContainer.append(issuesCard);
+    updateTotal();
   });
 };
 
@@ -120,7 +127,7 @@ async function selectedBtn(btnId) {
     .querySelectorAll("#btn-box button")
     .forEach((btn) => btn.classList.remove("btn-primary"));
   document.getElementById(btnId).classList.add("btn-primary");
-showSpinner()
+  showSpinner();
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
