@@ -14,18 +14,20 @@ const createElement = (arr) => {
   });
   return htmlElement.join(" ");
 };
+
 const loadAllIssues = () => {
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
-    .then((data) => displayData(data.data));
+    .then((data) => displayIssues(data.data));
 };
 
-const displayData = (data) => {
+const displayIssues = (data) => {
   const issuesContainer = document.getElementById("issues-container");
   issuesContainer.innerHTML = "";
   data.forEach((issues) => {
     const issuesCard = document.createElement("article");
     issuesCard.className = "bg-white p-4 rounded-lg space-y-5";
+    issuesCard.onclick = () => loadModal(issues.id);
     if (issues.status === "open") {
       issuesCard.classList.add("border-t-[5px]", "border-[#00A96E]");
     } else {
@@ -67,4 +69,63 @@ ${issues.priority}
     issuesContainer.append(issuesCard);
   });
 };
+
+async function loadModal(id) {
+  const res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`,
+  );
+  const data = await res.json();
+  showModal(data.data);
+}
+
+const showModal = (data) => {
+  const modalBox = document.getElementById("modal-box");
+  modalBox.innerHTML = `
+    <h3 class="text-lg font-bold">${data.title}!</h3>
+    <ul class="flex items-center gap-2">
+    <li><div class="badge badge-success">${data.status}</div> </li>
+    <li><span>Opened by ${data.assignee}</span></li>
+    <li>${data.updatedAt}</li>
+    </ul>
+        <div class="font-medium flex items-center gap-3">
+          ${createElement(data.labels)}
+        </div>
+        <p>${data.description}</p>
+        <div class="bg-[#F8FAFC] rounded p-5 flex justify-between items-center">
+      <p>Assignee: <br><span class="font-semibold gap-3">${data.assignee}</span></p>
+      <p>Priority: <br><span class="badge badge-error">${data.priority}</span></p>
+    </div>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn btn-primary">Close</button>
+          </form>
+        </div>
+   `;
+  gitModal.showModal();
+};
+
+async function selectedBtn(btnId) {
+  document
+    .querySelectorAll("#btn-box button")
+    .forEach((btn) => btn.classList.remove("btn-primary"));
+  document.getElementById(btnId).classList.add("btn-primary");
+
+  const res = await fetch(
+    "https://phi-lab-server.vercel.app/api/v1/lab/issues",
+  );
+  const data = await res.json();
+
+  let filteredIssues = [];
+  if (btnId === "open-btn") {
+    filteredIssues = data.data.filter((issues) => issues.status === "open");
+    displayIssues(filteredIssues);
+  } else if (btnId === "close-btn") {
+    filteredIssues = data.data.filter((issues) => issues.status === "closed");
+    displayIssues(filteredIssues);
+  }
+  else{
+     displayIssues(data.data);
+  }
+}
+
 loadAllIssues();
