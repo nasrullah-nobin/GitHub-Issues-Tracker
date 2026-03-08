@@ -171,4 +171,11 @@ document.getElementById("search-btn").addEventListener("click", function () {
 });
 });
 
+const menuBtn = document.getElementById("menu-btn");
+const searchBox = document.getElementById("search-box");
+
+menuBtn.addEventListener("click", () => {
+  searchBox.classList.toggle("hidden");
+});
+
 loadAllIssues();

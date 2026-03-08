@@ -39,22 +39,33 @@
     />
   </head>
   <body class="bg-[#E4E4E7] min-h-screen w-full">
-    <header class="bg-base-100 shadow-sm">
-      <nav class="navbar w-11/12 mx-auto">
-        <div class="flex-1">
-          <a class="btn btn-ghost text-xl">
-            <div class="w-9">
-              <img src="assets/github-logo.png" alt="github-logo" />
-            </div>
-            <span>GitHub Issues Tracker</span></a
-          >
-        </div>
-        <div class="flex gap-2">
-          <input id="search-input" type="text" placeholder="Search issues..." class="input" />
+    <div class="navbar bg-base-100 shadow-sm flex-wrap">
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">
+          <img class="w-9" src="assets/github-logo.png" alt="" />
+          GitHub Issues Tracker
+        </a>
+      </div>
+
+      <div class="flex-none">
+        <button id="menu-btn" class="btn btn-square btn-ghost md:hidden">
+          ☰
+        </button>
+        <div id="search-box" class="hidden md:flex gap-3 mt-3 md:mt-0">
+          <label class="input">
+            <input
+              id="search-input"
+              class="input w-fit outline-none"
+              type="search"
+              placeholder="🔍 Search issues..."
+            />
+          </label>
+          <br />
+          <br />
           <button id="search-btn" class="btn btn-primary">Search</button>
         </div>
-      </nav>
-    </header>
+      </div>
+    </div>
 
     <main class="w-11/12 mx-auto">
       <section id="btn-box" class="bg-white mt-20 p-6 flex gap-2 rounded-lg">
@@ -75,14 +86,16 @@
 
       <section>
         <div
-          class="bg-white mt-4 p-6 flex gap-2 rounded-lg justify-between items-center"
+          class="bg-white mt-4 p-6 flex gap-2 rounded-lg justify-center sm:justify-between items-center flex-wrap"
         >
           <div class="flex gap-2 items-center">
-            <div class="bg-[#ECE4FF] rounded-full p-3">
-              <img src="assets/Aperture.png" alt="" />
+            <div class="bg-[#ECE4FF] rounded-full p-1">
+              <img class="w-10 h-10" src="assets/Aperture.png" alt="" />
             </div>
             <div>
-              <h3 class="text-xl font-semibold"><span id="total-issues">50</span> Issues</h3>
+              <h3 class="text-xl font-semibold">
+                <span id="total-issues">50</span> Issues
+              </h3>
               <p class="text-base text-gray-400">
                 Track and manage your project issues
               </p>
@@ -109,7 +122,7 @@
 
       <section
         id="issues-container"
-        class="p-6 shadow rounded-lg grid grid-cols-3 gap-4"
+        class="p-6 shadow rounded-lg grid grid-cols-1 md:grid-cols-3 gap-4"
       ></section>
     </main>
 
