@@ -1,3 +1,4 @@
+let filteredIssues = [];
 const updateTotal = () => {
   const totalIssues = document.getElementById("total-issues");
   const issuesContainer = document.getElementById("issues-container");
@@ -133,7 +134,6 @@ async function selectedBtn(btnId) {
   );
   const data = await res.json();
 
-  let filteredIssues = [];
   if (btnId === "open-btn") {
     filteredIssues = data.data.filter((issues) => issues.status === "open");
     displayIssues(filteredIssues);
@@ -144,5 +144,31 @@ async function selectedBtn(btnId) {
     displayIssues(data.data);
   }
 }
+
+document.getElementById("search-btn").addEventListener("click", function () {
+  const searchInput = document.getElementById("search-input");
+  const value = searchInput.value;
+  showSpinner()
+  fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`)
+    .then((res) => res.json())
+    .then((data) => {
+      displayIssues(data.data);
+      updateTotal();
+      const issuesContainer = document.getElementById("issues-container");
+      if (issuesContainer.children.length === 0) {
+        issuesContainer.innerHTML = `
+    <div
+          class="col-span-full text-center rounded py-20 font-bangla space-y-5"
+        > 
+        <img class="mx-auto" src="./assets/alert-error.png" alt="error msg">
+          <p class="text-gray-400 text-xl">
+          🔍 No results found Try searching with a different keyword.
+          </p>
+        </div>
+    `;
+  }
+  hiddenSpinner()
+});
+});
 
 loadAllIssues();
