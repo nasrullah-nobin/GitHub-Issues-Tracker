@@ -58,9 +58,19 @@
 
     <main class="w-11/12 mx-auto">
       <section id="btn-box" class="bg-white mt-20 p-6 flex gap-2 rounded-lg">
-        <button onclick="selectedBtn('all-btn')" id="all-btn" class="btn btn-primary">All</button>
-        <button onclick="selectedBtn('open-btn')" id="open-btn" class="btn">Open</button>
-        <button onclick="selectedBtn('close-btn')" id="close-btn" class="btn">Closed</button>
+        <button
+          onclick="selectedBtn('all-btn')"
+          id="all-btn"
+          class="btn btn-primary"
+        >
+          All
+        </button>
+        <button onclick="selectedBtn('open-btn')" id="open-btn" class="btn">
+          Open
+        </button>
+        <button onclick="selectedBtn('close-btn')" id="close-btn" class="btn">
+          Closed
+        </button>
       </section>
 
       <section>
@@ -91,41 +101,20 @@
         </div>
       </section>
       <section
+        id="loading-spinner"
+        class="flex justify-center items-center py-20 hidden"
+      >
+        <span class="loading loading-spinner loading-xl"></span>
+      </section>
+
+      <section
         id="issues-container"
         class="p-6 shadow rounded-lg grid grid-cols-3 gap-4"
-      >
-        <article class="bg-white p-4 rounded-lg space-y-5">
-          <div class="flex justify-between">
-            <img src="assets/Closed- Status .png" alt="" />
-            <div class="badge badge-soft badge-error rounded-full">Error</div>
-          </div>
-          <h2 class="text-sm font-semibold">
-            Fix navigation menu on mobile devices
-          </h2>
-          <p class="text-xs text-gray-400">
-            The navigation menu doesn't collapse properly on mobile devices...
-          </p>
-          <div class="font-medium flex items-center gap-3">
-            <div class="badge badge-soft badge-error rounded-full">
-              <i class="fa-solid fa-bug"></i> bug
-            </div>
-            <div class="badge badge-soft badge-warning">
-              <i class="fa-solid fa-life-ring"></i> help wanted
-            </div>
-          </div>
-          <span
-            class="inline-block w-full border-t border-gray-700 opacity-15"
-          ></span>
-          <p>#1 by john_doe</p>
-          <p>1/15/2024</p>
-        </article>
-      </section>
+      ></section>
     </main>
-    
+
     <dialog id="gitModal" class="modal modal-bottom sm:modal-middle">
-      <div id="modal-box" class="modal-box space-y-5">
-       
-      </div>
+      <div id="modal-box" class="modal-box space-y-5"></div>
     </dialog>
     <script src="Js/home.js"></script>
   </body>

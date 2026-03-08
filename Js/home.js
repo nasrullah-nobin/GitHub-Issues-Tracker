@@ -1,3 +1,12 @@
+const showSpinner = () => {
+  document.getElementById("loading-spinner").classList.remove("hidden");
+  document.getElementById("issues-container").classList.add("hidden");
+};
+
+const hiddenSpinner =()=> {
+  document.getElementById("loading-spinner").classList.add("hidden");
+  document.getElementById("issues-container").classList.remove("hidden");
+}
 const createElement = (arr) => {
   const htmlElement = arr.map((el) => {
     if (el === "bug") {
@@ -16,6 +25,7 @@ const createElement = (arr) => {
 };
 
 const loadAllIssues = () => {
+  showSpinner()
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((data) => displayIssues(data.data));
@@ -66,6 +76,7 @@ ${issues.priority}
           <p>Update : ${issues.updatedAt}
           </div>
         `;
+        hiddenSpinner()
     issuesContainer.append(issuesCard);
   });
 };
@@ -109,7 +120,7 @@ async function selectedBtn(btnId) {
     .querySelectorAll("#btn-box button")
     .forEach((btn) => btn.classList.remove("btn-primary"));
   document.getElementById(btnId).classList.add("btn-primary");
-
+showSpinner()
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
@@ -122,9 +133,8 @@ async function selectedBtn(btnId) {
   } else if (btnId === "close-btn") {
     filteredIssues = data.data.filter((issues) => issues.status === "closed");
     displayIssues(filteredIssues);
-  }
-  else{
-     displayIssues(data.data);
+  } else {
+    displayIssues(data.data);
   }
 }
 
