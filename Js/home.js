@@ -44,7 +44,7 @@ const displayIssues = (data) => {
   data.forEach((issues) => {
     const issuesCard = document.createElement("article");
     issuesCard.className = "bg-white p-4 rounded-lg space-y-5";
-    issuesCard.onclick = () => loadModal(issues.id);
+    issuesCard.onclick = ()=> loadModal(issues.id)
     if (issues.status === "open") {
       issuesCard.classList.add("border-t-[5px]", "border-[#00A96E]");
     } else {
@@ -65,7 +65,7 @@ rounded-full">
 ${issues.priority}
 </div>
           </div>
-          <h2 class="text-base font-semibold">${issues.title}</h2>
+          <h2  class="text-base font-semibold">${issues.title}</h2>
           <p class="text-xs text-gray-400">
             ${issues.description}
           </p>
@@ -76,11 +76,11 @@ ${issues.priority}
          <span class="inline-block w-full border-t border-gray-700 opacity-15"></span>
           <div class="flex justify-between items-center">
           <p>#${issues.id} ${issues.author}</p>
-          <p>${issues.createdAt}
+          <p>${new Date(issues.createdAt).toLocaleDateString() }
           </div>
            <div class="flex justify-between items-center">
           <p>Assignee : ${issues.assignee ? issues.assignee : "Unassigned"}</p>
-          <p>Update : ${issues.updatedAt}
+          <p>Update : ${new Date(issues.updatedAt).toLocaleDateString() }
           </div>
         `;
     hiddenSpinner();
@@ -103,15 +103,15 @@ const showModal = (data) => {
     <h3 class="text-lg font-bold">${data.title}!</h3>
     <ul class="flex items-center gap-2">
     <li><div class="badge badge-success">${data.status}</div> </li>
-    <li><span>Opened by ${data.assignee}</span></li>
-    <li>${data.updatedAt}</li>
+    <li><span>Opened by ${data.assignee ? data.assignee: 'Unknown'}</span></li>
+    <li>${new Date(data.updatedAt).toLocaleDateString()}</li>
     </ul>
         <div class="font-medium flex items-center gap-3">
           ${createElement(data.labels)}
         </div>
         <p>${data.description}</p>
         <div class="bg-[#F8FAFC] rounded p-5 flex justify-between items-center">
-      <p>Assignee: <br><span class="font-semibold gap-3">${data.assignee}</span></p>
+      <p>Assignee: <br><span class="font-semibold gap-3">${data.assignee ? data.assignee : "Unassigned"}</span></p>
       <p>Priority: <br><span class="badge badge-error">${data.priority}</span></p>
     </div>
         <div class="modal-action">
@@ -158,7 +158,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
       if (issuesContainer.children.length === 0) {
         issuesContainer.innerHTML = `
     <div
-          class="col-span-full text-center rounded py-20 font-bangla space-y-5"
+          class="col-span-full text-center rounded py-20 space-y-5"
         > 
         <img class="mx-auto" src="./assets/alert-error.png" alt="error msg">
           <p class="text-gray-400 text-xl">
