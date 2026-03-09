@@ -18,4 +18,6 @@ in ES6 arrow function is short and modern method to declare function
 
 ## 5 template literals
 Template literals were introduced in ES6.
+They allow multiline strings without using \n or string concatenation.
 In template literals, we can easily insert variables using ${} syntax.
+
