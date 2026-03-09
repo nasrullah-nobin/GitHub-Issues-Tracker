@@ -147,7 +147,7 @@ async function selectedBtn(btnId) {
 
 document.getElementById("search-btn").addEventListener("click", function () {
   const searchInput = document.getElementById("search-input");
-  const value = searchInput.value;
+  const value = searchInput.value.trim();
   showSpinner()
   fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`)
     .then((res) => res.json())
