@@ -146,6 +146,7 @@ async function selectedBtn(btnId) {
 }
 
 document.getElementById("search-btn").addEventListener("click", function () {
+  searchBox.classList.add("hidden")
   const searchInput = document.getElementById("search-input");
   const value = searchInput.value.trim();
   showSpinner()
