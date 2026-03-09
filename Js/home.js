@@ -35,7 +35,9 @@ const loadAllIssues = () => {
   showSpinner();
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
-    .then((data) => displayIssues(data.data));
+    .then((data) => {
+      displayIssues(data.data)
+    });
 };
 
 const displayIssues = (data) => {
@@ -44,7 +46,7 @@ const displayIssues = (data) => {
   data.forEach((issues) => {
     const issuesCard = document.createElement("article");
     issuesCard.className = "bg-white p-4 rounded-lg space-y-5";
-    issuesCard.onclick = ()=> loadModal(issues.id)
+    issuesCard.onclick = () => loadModal(issues.id);
     if (issues.status === "open") {
       issuesCard.classList.add("border-t-[5px]", "border-[#00A96E]");
     } else {
@@ -76,17 +78,17 @@ ${issues.priority}
          <span class="inline-block w-full border-t border-gray-700 opacity-15"></span>
           <div class="flex justify-between items-center">
           <p>#${issues.id} ${issues.author}</p>
-          <p>${new Date(issues.createdAt).toLocaleDateString() }
+          <p>${new Date(issues.createdAt).toLocaleDateString()}
           </div>
            <div class="flex justify-between items-center">
           <p>Assignee : ${issues.assignee ? issues.assignee : "Unassigned"}</p>
-          <p>Update : ${new Date(issues.updatedAt).toLocaleDateString() }
+          <p>Update : ${new Date(issues.updatedAt).toLocaleDateString()}
           </div>
         `;
-    hiddenSpinner();
     issuesContainer.append(issuesCard);
     updateTotal();
   });
+  hiddenSpinner();
 };
 
 async function loadModal(id) {
@@ -103,7 +105,7 @@ const showModal = (data) => {
     <h3 class="text-lg font-bold">${data.title}!</h3>
     <ul class="flex items-center gap-2">
     <li><div class="badge badge-success">${data.status}</div> </li>
-    <li><span>Opened by ${data.assignee ? data.assignee: 'Unknown'}</span></li>
+    <li><span>Opened by ${data.assignee ? data.assignee : "Unknown"}</span></li>
     <li>${new Date(data.updatedAt).toLocaleDateString()}</li>
     </ul>
         <div class="font-medium flex items-center gap-3">
@@ -145,11 +147,30 @@ async function selectedBtn(btnId) {
   }
 }
 
+
+function filterAndDisplay(searchText = "") {
+
+  let result = allIssues;
+
+  if (currentTab !== "all") {
+    result = result.filter(issue => issue.status === currentTab);
+  }
+
+  if (searchText) {
+    result = result.filter(issue =>
+      issue.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+
+  displayIssues(result);
+}
+
+
 document.getElementById("search-btn").addEventListener("click", function () {
-  searchBox.classList.add("hidden")
+  searchBox.classList.add("hidden");
   const searchInput = document.getElementById("search-input");
   const value = searchInput.value.trim();
-  showSpinner()
+  showSpinner();
   fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${value}`)
     .then((res) => res.json())
     .then((data) => {
@@ -167,10 +188,12 @@ document.getElementById("search-btn").addEventListener("click", function () {
           </p>
         </div>
     `;
-  }
-  hiddenSpinner()
+      }
+      hiddenSpinner();
+    });
 });
-});
+
+
 
 const menuBtn = document.getElementById("menu-btn");
 const searchBox = document.getElementById("search-box");
